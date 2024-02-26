@@ -1,18 +1,16 @@
-
 export default async function Home() {
-
   return (
     <main>
       <section className="home section" id="home">
         <div className="container">
           <div className="intro">
             <img
-              src="/imgs/alsiam.png"
-              alt="Al Siam Profile"
+              src="/imgs/josephdamiba.jpg"
+              alt="Joseph Damiba picture"
               className="shadow-dark"
             />
-            <h1>Your Name</h1>
-            <p>Your expertise</p>
+            <h1>Joseph Damiba</h1>
+            <p>Front-end Web Developer</p>
             <div className="social-links">
               <a href="https://twitter.com/" target="_blank">
                 <i className="fa fa-twitter" />

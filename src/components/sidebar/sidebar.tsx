@@ -22,11 +22,6 @@ const Sidebar = () => {
         <span />
       </div>
       <div className="aside-inner">
-        <div className="logo">
-          <Link href="/" onClick={handleClose}>
-            Logo
-          </Link>
-        </div>
         <ul className="nav">
           <li onClick={handleClose}>
             <Link href="/" className={`${pathUrl == "/" && "active"}`}>
@@ -79,12 +74,6 @@ const Sidebar = () => {
             </Link>
           </li>
         </ul>
-        <div className="copyright">
-          Created with ❤️ By{" "}
-          <a href="http://alsiam.com" target="_blank" rel="noopener noreferrer">
-            Al Siam
-          </a>
-        </div>
       </div>
     </aside>
   );
