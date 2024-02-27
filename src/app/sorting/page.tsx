@@ -12,6 +12,7 @@ const Service: NextPage = () => {
   const [numbersArr, setNumbersArr] = useState<number[]>([]);
 
   const quickSort = (input: number[]): number[] => {
+    console.log("Sortin");
     if (input.length < 2) {
       return input;
     }
@@ -152,8 +153,8 @@ const Service: NextPage = () => {
 
         <h3>Component</h3>
 
-        <div className="input-container">
-          <div className="input-area">
+        <div className="quicksort-component-container">
+          <div className="digit-buttons-container">
             {[0, 1, 2, 3, 4, 5, 6, 7, 8, 9].map((number) => {
               return (
                 <button

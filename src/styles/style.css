@@ -1198,7 +1198,7 @@ select {
 }
 
 .number-button {
-  margin: 10px;
+  margin: auto;
   height: 60px;
   width: 60px;
   font-size: 20px;
@@ -1219,6 +1219,8 @@ select {
 
 .input-area{
   margin-top: 20px;
+  max-width: 300px;
+  max-height: 500px;
 }
 
 a {
@@ -1240,17 +1242,41 @@ a:hover{
   text-decoration: underline;
 }
 
-
 p{
   margin-bottom: 10px;
 }
 
-.input-container{
-  display:flex;
-  flex-direction: column;
+.number-button{
+  margin: 20px;
 }
 
-.input-area, .buttons-container, .input-box-container, .inputArr-container, .sortedArr-container{
+.buttons-container{
+  display: flex;
+  margin: auto;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin-bottom: 20px;
+}
+
+.input-box-container, .inputArr-container, .sortedArr-container{
+  margin:auto;
+}
+
+.quicksort-component-container {
+  
+  border-radius: 25px;
+  max-width: 500px;
+  display: flex;
+  flex-direction: column;
+  border: 10px solid black;
+  margin: auto;
+  margin-bottom: 20px;
+  padding: 20px;
+}
+.digit-buttons-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
   margin:auto;
 }
 
@@ -1270,4 +1296,8 @@ p{
   margin-top: 20px;
   margin-bottom: 20px;
 
+}
+
+h3{
+  text-decoration: underline;
 }
