@@ -3,7 +3,7 @@
 import type { NextPage } from "next";
 import Head from "next/head";
 
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import SyntaxHighlighter from "react-syntax-highlighter";
 import { docco } from "react-syntax-highlighter/dist/cjs/styles/hljs";
 
@@ -33,6 +33,11 @@ const Service: NextPage = () => {
 
     return [...quickSort(left), pivot, ...quickSort(right)];
   };
+
+  const sorted = useMemo(() => {
+    // ✅ Does not re-run unless todos or filter change
+    return quickSort(numbersArr);
+  }, [numbersArr]);
 
   const codeString = `
   function quickSort(input){
@@ -200,10 +205,8 @@ const Service: NextPage = () => {
           </div>
           <div className="sortedArr-container">
             Sorted Array: [
-            {quickSort(numbersArr).map((number, index) => {
-              return index === quickSort(numbersArr).length - 1
-                ? number
-                : `${number}, `;
+            {sorted.map((number, index) => {
+              return index === sorted.length - 1 ? number : `${number}, `;
             })}
             ]
           </div>

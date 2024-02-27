@@ -34,12 +34,10 @@ const Service: NextPage = () => {
                 <div className="icon">
                   <i className="fa fa-laptop" />
                 </div>
-                <h4>Custom Web Design</h4>
+                <h4>Data Fetching, Presentation, Filtering</h4>
                 <p>
-                  Create a stunning online presence with our custom web design
-                  services. Wel will tailor a website that not only looks
-                  impressive but also delivers a seamless user experience,
-                  helping you achieve your online goals.
+                  This component fetches data from an API and lets the user
+                  filter the results.
                 </p>
               </div>
             </div>
