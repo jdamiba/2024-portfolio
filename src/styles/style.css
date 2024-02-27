@@ -1232,3 +1232,9 @@ select {
 a {
   color: blue;
 }
+
+.timeline-item > ul > li {
+
+  margin-bottom: 10px;
+
+}
