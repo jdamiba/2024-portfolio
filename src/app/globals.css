@@ -97,15 +97,11 @@ body {
 
 a {
   color: inherit;
-  text-decoration: underline;
+  text-decoration: none;
 }
 
 @media (prefers-color-scheme: dark) {
   html {
     color-scheme: dark;
   }
-}
-
-p{
-  margin-bottom: 10px;
 }

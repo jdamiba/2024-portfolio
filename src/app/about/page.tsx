@@ -34,16 +34,6 @@ const About: NextPage = () => {
                   <div className="row">
                     <div className="info-item padd-15">
                       <p>
-                        Website :{" "}
-                        <span>
-                          <a href="https://www.josephdamiba.dev">
-                            www.josephdamiba.dev
-                          </a>
-                        </span>
-                      </p>
-                    </div>
-                    <div className="info-item padd-15">
-                      <p>
                         Email : <span>jdamiba@gmail.com</span>
                       </p>
                     </div>

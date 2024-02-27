@@ -1089,19 +1089,11 @@ select {
   font-size: 20px;
 }
 
-.number-button:nth-of-type(1) {
-  margin-left: 0px;
-}
-
 .user-input-button{
   margin:10px;
   height: 50px;
   font-size: 20px;
   padding: 10px;
-}
-
-.user-input-button:nth-of-type(1) {
-  margin-left: 0;
 }
 
 .input-box {
@@ -1121,6 +1113,47 @@ a {
 .timeline-item > ul > li {
 
   margin-bottom: 10px;
+
+}
+
+*:focus{
+ outline: thin dotted; 
+}
+
+
+a:hover{
+  text-decoration: underline;
+}
+
+
+p{
+  margin-bottom: 10px;
+}
+
+.input-container{
+  display:flex;
+  flex-direction: column;
+}
+
+.input-area, .buttons-container, .input-box-container, .inputArr-container, .sortedArr-container{
+  margin:auto;
+}
+
+.code-container{
+  margin-bottom: 50px;
+}
+
+.inputArr-container, .sortedArr-container{
+  text-align: center;
+  padding-top: 20px;
+  margin:auto;
+}
+
+.input-container{
+  border: 10px solid black;
+  padding: 20px;
+  margin-top: 20px;
+  margin-bottom: 20px;
 
 }
 /*!********************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
@@ -1294,7 +1327,7 @@ body {
 
 a {
   color: inherit;
-  text-decoration: underline;
+  text-decoration: none;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -1303,9 +1336,6 @@ a {
   }
 }
 
-p{
-  margin-bottom: 10px;
-}
 /*!*****************************************************************************************************************************************************************************************************************************************************************!*\
   !*** css ./node_modules/next/dist/build/webpack/loaders/css-loader/src/index.js??ruleSet[1].rules[11].oneOf[12].use[2]!./node_modules/next/dist/build/webpack/loaders/postcss-loader/src/index.js??ruleSet[1].rules[11].oneOf[12].use[3]!./src/styles/blue.css ***!
   \*****************************************************************************************************************************************************************************************************************************************************************/
