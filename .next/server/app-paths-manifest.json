@@ -1,3 +1,5 @@
 {
-  "/sorting/page": "app/sorting/page.js"
+  "/sorting/page": "app/sorting/page.js",
+  "/portfolio/page": "app/portfolio/page.js",
+  "/tictactoe/page": "app/tictactoe/page.js"
 }

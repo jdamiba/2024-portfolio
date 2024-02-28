@@ -97,6 +97,64 @@ const Service: NextPage = () => {
     setIndividualNumber("");
   };
 
+  const QuickSort = () => {
+    return (
+      <div className="quicksort-component-container">
+        <div className="digit-buttons-container">
+          {[0, 1, 2, 3, 4, 5, 6, 7, 8, 9].map((number) => {
+            return (
+              <button
+                key={number}
+                onClick={() => {
+                  handleNumberClick(String(number));
+                }}
+                className="number-button"
+              >
+                {number}
+              </button>
+            );
+          })}
+        </div>
+        <div className="buttons-container">
+          <button onClick={handleAddClick} className="user-input-button">
+            Add
+          </button>
+          <button onClick={handleDelete} className="user-input-button">
+            Delete
+          </button>
+          <button onClick={handleClear} className="user-input-button">
+            Clear
+          </button>
+        </div>
+        <div className="input-box-container">
+          <input
+            className="input-box"
+            type="number"
+            value={individualNumber}
+            onChange={handleInputChange}
+            onKeyDown={(e) => {
+              if (e.key === "Enter") handleEnterPress(individualNumber);
+            }}
+          />
+        </div>
+        <div className="inputArr-container">
+          Input Array: [
+          {numbersArr.map((number, index) => {
+            return index === numbersArr.length - 1 ? number : `${number}, `;
+          })}
+          ]
+        </div>
+        <div className="sortedArr-container">
+          Sorted Array: [
+          {sorted.map((number, index) => {
+            return index === sorted.length - 1 ? number : `${number}, `;
+          })}
+          ]
+        </div>
+      </div>
+    );
+  };
+
   return (
     <>
       <Head>
@@ -158,59 +216,7 @@ const Service: NextPage = () => {
 
         <h3>Component</h3>
 
-        <div className="quicksort-component-container">
-          <div className="digit-buttons-container">
-            {[0, 1, 2, 3, 4, 5, 6, 7, 8, 9].map((number) => {
-              return (
-                <button
-                  key={number}
-                  onClick={() => {
-                    handleNumberClick(String(number));
-                  }}
-                  className="number-button"
-                >
-                  {number}
-                </button>
-              );
-            })}
-          </div>
-          <div className="buttons-container">
-            <button onClick={handleAddClick} className="user-input-button">
-              Add
-            </button>
-            <button onClick={handleDelete} className="user-input-button">
-              Delete
-            </button>
-            <button onClick={handleClear} className="user-input-button">
-              Clear
-            </button>
-          </div>
-          <div className="input-box-container">
-            <input
-              className="input-box"
-              type="number"
-              value={individualNumber}
-              onChange={handleInputChange}
-              onKeyDown={(e) => {
-                if (e.key === "Enter") handleEnterPress(individualNumber);
-              }}
-            />
-          </div>
-          <div className="inputArr-container">
-            Input Array: [
-            {numbersArr.map((number, index) => {
-              return index === numbersArr.length - 1 ? number : `${number}, `;
-            })}
-            ]
-          </div>
-          <div className="sortedArr-container">
-            Sorted Array: [
-            {sorted.map((number, index) => {
-              return index === sorted.length - 1 ? number : `${number}, `;
-            })}
-            ]
-          </div>
-        </div>
+        <QuickSort />
 
         <h3>Quicksort Algorithm</h3>
 

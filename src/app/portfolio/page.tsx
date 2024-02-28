@@ -44,18 +44,18 @@ const Service: NextPage = () => {
             {/* Service Item 2 End */}
             {/* Service Item 3: WordPress */}
             <div className="service-item padd-15">
-              <div className="service-item-inner">
-                <div className="icon">
-                  <i className="fa fa-wordpress" />
+              <Link href="/tictactoe">
+                <div className="service-item-inner">
+                  <div className="icon">
+                    <i className="fa fa-wordpress" />
+                  </div>
+                  <h4>Tic Tac Toe Game</h4>
+                  <p>
+                    A tic tac toe game where you can play against a computer
+                    opponent.
+                  </p>
                 </div>
-                <h4>WordPress Development</h4>
-                <p>
-                  Harness the power of WordPress for your website. Our experts
-                  will build a feature-rich and scalable WordPress site that
-                  empowers you to manage content effortlessly and stay ahead in
-                  the digital landscape.
-                </p>
-              </div>
+              </Link>
             </div>
             {/* Service Item 3 End */}
             {/* Service Item 4: Web Development */}

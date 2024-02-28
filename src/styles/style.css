@@ -1263,7 +1263,6 @@ p{
 }
 
 .quicksort-component-container {
-  
   border-radius: 25px;
   max-width: 500px;
   display: flex;
@@ -1301,4 +1300,21 @@ p{
 
 h3{
   text-decoration: underline;
+}
+
+.tictactoe-component-container{
+    display: grid;
+    margin:auto;
+    grid-template-rows: 100px 100px 100px;
+    grid-template-columns: 100px 100px 100px;
+}
+
+.game-cell {
+  height: 100px;
+  width: 100px;
+  border: 2px solid black;
+}
+
+.component-container {
+  display:flex;
 }
