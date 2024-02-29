@@ -10,16 +10,10 @@ import { docco } from "react-syntax-highlighter/dist/cjs/styles/hljs";
 const Service: NextPage = () => {
   const [activePlayer, setActivePlayer] = useState("x");
 
-  function Square() {
-    const [value, setValue] = useState(null);
-
-    function handleClick() {
-      setValue("X");
-    }
-
+  function Square({ value, onSquareClick }) {
     return (
       <>
-        <button onClick={handleClick} className="square">
+        <button onClick={onSquareClick} className="square">
           {value}
         </button>
       </>
@@ -27,22 +21,81 @@ const Service: NextPage = () => {
   }
 
   function Board() {
+    const [squares, setSquares] = useState(Array(9).fill(null));
+    const [xIsNext, setXIsNext] = useState(true);
+
+    function handleClick(index) {
+      const nextSquares = squares.slice();
+      if (xIsNext) {
+        nextSquares[index] = "X";
+      } else {
+        nextSquares[index] = "O";
+      }
+      setSquares(nextSquares);
+      setXIsNext(!xIsNext);
+    }
+
     return (
       <div>
         <div className="board-row">
-          <Square />
-          <Square />
-          <Square />
+          <Square
+            onSquareClick={() => {
+              handleClick(0);
+            }}
+            value={squares[0]}
+          />
+          <Square
+            onSquareClick={() => {
+              handleClick(1);
+            }}
+            value={squares[1]}
+          />
+          <Square
+            onSquareClick={() => {
+              handleClick(2);
+            }}
+            value={squares[2]}
+          />
         </div>
         <div className="board-row">
-          <Square />
-          <Square />
-          <Square />
+          <Square
+            onSquareClick={() => {
+              handleClick(3);
+            }}
+            value={squares[3]}
+          />
+          <Square
+            onSquareClick={() => {
+              handleClick(4);
+            }}
+            value={squares[4]}
+          />
+          <Square
+            onSquareClick={() => {
+              handleClick(5);
+            }}
+            value={squares[5]}
+          />
         </div>
         <div className="board-row">
-          <Square />
-          <Square />
-          <Square />
+          <Square
+            onSquareClick={() => {
+              handleClick(6);
+            }}
+            value={squares[6]}
+          />
+          <Square
+            onSquareClick={() => {
+              handleClick(7);
+            }}
+            value={squares[7]}
+          />
+          <Square
+            onSquareClick={() => {
+              handleClick(8);
+            }}
+            value={squares[8]}
+          />
         </div>
       </div>
     );
@@ -69,7 +122,7 @@ const Service: NextPage = () => {
         <div className="container">
           <div className="row">
             <div className="section-title padd-15">
-              <h2>Quicksort React Component</h2>
+              <h2>Tic Tac Toe Component</h2>
             </div>
           </div>
         </div>
