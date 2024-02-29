@@ -3,17 +3,17 @@
 import type { NextPage } from "next";
 import Head from "next/head";
 
-import { useMemo, useState } from "react";
+import { MouseEventHandler, useMemo, useState } from "react";
 import SyntaxHighlighter from "react-syntax-highlighter";
 import { docco } from "react-syntax-highlighter/dist/cjs/styles/hljs";
 
-const Service: NextPage = () => {
-  const [xIsNext, setXIsNext] = useState(true);
+const TicTacToe: NextPage = () => {
+  const [xIsNext, setXIsNext] = useState<boolean>(true);
   const [history, setHistory] = useState([Array(9).fill(null)]);
-  const [currentMove, setCurrentMove] = useState(0);
+  const [currentMove, setCurrentMove] = useState<number>(0);
   const currentSquares = history[currentMove];
 
-  function calculateWinner(squares) {
+  function calculateWinner(squares: Array<string | undefined>) {
     const lines = [
       [0, 1, 2],
       [3, 4, 5],
@@ -37,14 +37,14 @@ const Service: NextPage = () => {
     return null;
   }
 
-  function handlePlay(nextSquares) {
+  function handlePlay(nextSquares: Array<string | undefined>) {
     const nextHistory = [...history.slice(0, currentMove + 1), nextSquares];
     setHistory(nextHistory);
     setCurrentMove(nextHistory.length - 1);
     setXIsNext(!xIsNext);
   }
 
-  function jumpTo(nextMove) {
+  function jumpTo(nextMove: number) {
     setCurrentMove(nextMove);
     setXIsNext(nextMove % 2 === 0);
   }
@@ -63,7 +63,13 @@ const Service: NextPage = () => {
     );
   });
 
-  function Square({ value, onSquareClick }) {
+  function Square({
+    value,
+    onSquareClick,
+  }: {
+    value: string;
+    onSquareClick: MouseEventHandler;
+  }) {
     return (
       <>
         <button onClick={onSquareClick} className="square">
@@ -73,7 +79,15 @@ const Service: NextPage = () => {
     );
   }
 
-  function Board({ xIsNext, squares, onPlay }) {
+  function Board({
+    xIsNext,
+    squares,
+    onPlay,
+  }: {
+    xIsNext: boolean;
+    squares: Array<string | undefined>;
+    onPlay: Function;
+  }) {
     const winner = calculateWinner(squares);
     let status;
     if (winner) {
@@ -82,7 +96,7 @@ const Service: NextPage = () => {
       status = "Next player: " + (xIsNext ? "X" : "O");
     }
 
-    function handleClick(index) {
+    function handleClick(index: number) {
       if (squares[index] || calculateWinner(squares)) {
         return;
       }
@@ -104,19 +118,19 @@ const Service: NextPage = () => {
             onSquareClick={() => {
               handleClick(0);
             }}
-            value={squares[0]}
+            value={squares[0]!}
           />
           <Square
             onSquareClick={() => {
               handleClick(1);
             }}
-            value={squares[1]}
+            value={squares[1]!}
           />
           <Square
             onSquareClick={() => {
               handleClick(2);
             }}
-            value={squares[2]}
+            value={squares[2]!}
           />
         </div>
         <div className="board-row">
@@ -124,19 +138,19 @@ const Service: NextPage = () => {
             onSquareClick={() => {
               handleClick(3);
             }}
-            value={squares[3]}
+            value={squares[3]!}
           />
           <Square
             onSquareClick={() => {
               handleClick(4);
             }}
-            value={squares[4]}
+            value={squares[4]!}
           />
           <Square
             onSquareClick={() => {
               handleClick(5);
             }}
-            value={squares[5]}
+            value={squares[5]!}
           />
         </div>
         <div className="board-row">
@@ -144,19 +158,19 @@ const Service: NextPage = () => {
             onSquareClick={() => {
               handleClick(6);
             }}
-            value={squares[6]}
+            value={squares[6]!}
           />
           <Square
             onSquareClick={() => {
               handleClick(7);
             }}
-            value={squares[7]}
+            value={squares[7]!}
           />
           <Square
             onSquareClick={() => {
               handleClick(8);
             }}
-            value={squares[8]}
+            value={squares[8]!}
           />
         </div>
       </>
@@ -231,4 +245,4 @@ const Service: NextPage = () => {
   );
 };
 
-export default Service;
+export default TicTacToe;
