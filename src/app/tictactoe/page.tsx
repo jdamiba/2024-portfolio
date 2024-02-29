@@ -10,40 +10,43 @@ import { docco } from "react-syntax-highlighter/dist/cjs/styles/hljs";
 const Service: NextPage = () => {
   const [activePlayer, setActivePlayer] = useState("x");
 
-  const Square = ({ value }) => {
-    return <button>{value}</button>;
-  };
+  function Square() {
+    const [value, setValue] = useState(null);
 
-  const Board = () => {
+    function handleClick() {
+      setValue("X");
+    }
+
+    return (
+      <>
+        <button onClick={handleClick} className="square">
+          {value}
+        </button>
+      </>
+    );
+  }
+
+  function Board() {
     return (
       <div>
-        <Square value="1" />
-        <Square value="1" />
-        <Square value="1" />
-        <Square value="1" />
-        <Square value="1" />
-        <Square value="1" />
-        <Square value="1" />
-        <Square value="1" />
-        <Square value="1" />
+        <div className="board-row">
+          <Square />
+          <Square />
+          <Square />
+        </div>
+        <div className="board-row">
+          <Square />
+          <Square />
+          <Square />
+        </div>
+        <div className="board-row">
+          <Square />
+          <Square />
+          <Square />
+        </div>
       </div>
     );
-  };
-
-  const handleCellClick = (index) => {
-    console.log("index " + index);
-    const cell = document.getElementById(`game-cell-${index}`);
-
-    console.log(cell);
-
-    if (activePlayer === "x") {
-      cell.innerHTML = "x";
-      setActivePlayer("o");
-    } else {
-      cell.innerHTML = "o";
-      setActivePlayer("x");
-    }
-  };
+  }
 
   const TicTacToe = () => {
     return (
