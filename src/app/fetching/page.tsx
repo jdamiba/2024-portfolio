@@ -5,6 +5,11 @@ import Head from "next/head";
 import { useEffect, useState } from "react";
 
 const Fetching: NextPage = () => {
+  type Beer = {
+    name: string;
+    description: string;
+  };
+
   function App() {
     useEffect(() => {
       fetch("https://api.punkapi.com/v2/beers")
