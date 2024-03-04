@@ -1094,6 +1094,8 @@ select {
   height: 50px;
   font-size: 20px;
   padding: 10px;
+  border-radius: 25px;
+  border: 2px solid black;
 }
 
 .input-box {
@@ -1133,6 +1135,8 @@ p{
 
 .number-button{
   margin: 20px;
+  border-radius: 25px;
+  border: 2px solid black;
 }
 
 .buttons-container{
@@ -1152,12 +1156,14 @@ p{
   max-width: 500px;
   display: flex;
   flex-direction: column;
-  border: 10px solid black;
   margin: auto;
   margin-bottom: 20px;
   margin-top: 20px;
   padding: 20px;
+  background: rgb(63,94,251);
+  background: radial-gradient(circle, rgba(63,94,251,1) 0%, rgba(252,70,107,1) 100%);
 }
+
 .digit-buttons-container {
   display: flex;
   flex-wrap: wrap;
@@ -1224,18 +1230,33 @@ h3{
   font-size: 24px;
   font-weight: bold;
   line-height: 34px;
-  height: 34px;
+  height: 84px;
   margin-right: -1px;
   margin-top: -1px;
   padding: 0;
   text-align: center;
-  width: 34px;
+  width: 84px;
 }
 
 .board-row:after {
   clear: both;
   content: '';
   display: table;
+}
+
+.status {
+  margin-bottom: 10px;
+}
+
+.travel-button {
+  padding: 20px;
+  margin: 10px;
+  margin-left: 0;
+}
+
+.icons{
+  display: flex; 
+  
 }
 /*!********************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
   !*** css ./node_modules/next/dist/build/webpack/loaders/css-loader/src/index.js??ruleSet[1].rules[11].oneOf[2].use[1]!./node_modules/next/dist/build/webpack/loaders/next-font-loader/index.js??ruleSet[1].rules[11].oneOf[2].use[2]!./node_modules/next/font/google/target.css?{"path":"src/app/layout.tsx","import":"Inter","arguments":[{"subsets":["latin"]}],"variableName":"inter"} ***!

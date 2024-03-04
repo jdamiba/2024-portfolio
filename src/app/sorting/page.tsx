@@ -138,18 +138,22 @@ const Service: NextPage = () => {
           />
         </div>
         <div className="inputArr-container">
-          Input Array: [
-          {numbersArr.map((number, index) => {
-            return index === numbersArr.length - 1 ? number : `${number}, `;
-          })}
-          ]
+          <h3>
+            Input Array: [
+            {numbersArr.map((number, index) => {
+              return index === numbersArr.length - 1 ? number : `${number}, `;
+            })}
+            ]
+          </h3>
         </div>
         <div className="sortedArr-container">
-          Sorted Array: [
-          {sorted.map((number, index) => {
-            return index === sorted.length - 1 ? number : `${number}, `;
-          })}
-          ]
+          <h3>
+            Sorted Array: [
+            {sorted.map((number, index) => {
+              return index === sorted.length - 1 ? number : `${number}, `;
+            })}
+            ]
+          </h3>
         </div>
       </div>
     );

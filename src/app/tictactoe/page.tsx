@@ -2,10 +2,7 @@
 
 import type { NextPage } from "next";
 import Head from "next/head";
-
 import { MouseEventHandler, useMemo, useState } from "react";
-import SyntaxHighlighter from "react-syntax-highlighter";
-import { docco } from "react-syntax-highlighter/dist/cjs/styles/hljs";
 
 const TicTacToe: NextPage = () => {
   const [xIsNext, setXIsNext] = useState<boolean>(true);
@@ -57,9 +54,11 @@ const TicTacToe: NextPage = () => {
       description = "Go to game start";
     }
     return (
-      <li>
-        <button onClick={() => jumpTo(move)}>{description}</button>
-      </li>
+      <div>
+        <button className="travel-button" onClick={() => jumpTo(move)}>
+          {description}
+        </button>
+      </div>
     );
   });
 
@@ -111,7 +110,9 @@ const TicTacToe: NextPage = () => {
 
     return (
       <>
-        <div className="status">{status}</div>
+        <div className="status">
+          <h3>{status}</h3>
+        </div>
 
         <div className="board-row">
           <Square
@@ -188,9 +189,7 @@ const TicTacToe: NextPage = () => {
               onPlay={handlePlay}
             />
           </div>
-          <div className="game-info">
-            <ol>{moves}</ol>
-          </div>
+          <div className="game-info">{moves}</div>
         </div>
       </>
     );

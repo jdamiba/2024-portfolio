@@ -21,7 +21,7 @@ const About: NextPage = () => {
                   <p>
                     Hi! My name is Joseph Damiba. I am a front-end web
                     developer, and I am very passionate and dedicated to my
-                    work. With 6 years experience as building products for
+                    work. With 6 years of experience building products for
                     startups, I have acquired the skills and knowledge necessary
                     to be an effective team member. I enjoy every step of the
                     software engineering process, from discussion and
