@@ -1371,5 +1371,15 @@ h3{
 
 .icons{
   display: flex; 
-  
+}
+
+.movie-component-container {
+  display: flex;
+  margin: auto;
+  flex-direction: column;
+  max-width: 500px;
+}
+
+.movie-title{
+  font-size: 24px;
 }

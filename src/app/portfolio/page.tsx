@@ -60,6 +60,21 @@ const Service: NextPage = () => {
               </Link>
             </div>
             {/* Service Item 3 End */}
+            {/* Service Item 3: WordPress */}
+            <div className="service-item padd-15">
+              <Link href="/six-degrees">
+                <div className="service-item-inner">
+                  <div className="icon">
+                    <i className="fa fa-times" />
+                  </div>
+                  <h4>Six Degrees Movie Game</h4>
+                  <p>
+                    A game where you build a chain of relations between movies.
+                  </p>
+                </div>
+              </Link>
+            </div>
+            {/* Service Item 3 End */}
           </div>
         </div>
       </section>

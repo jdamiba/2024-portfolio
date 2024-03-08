@@ -1,7 +1,3 @@
 {
-  "/about/page": "app/about/page.js",
-  "/tictactoe/page": "app/tictactoe/page.js",
-  "/sorting/page": "app/sorting/page.js",
-  "/portfolio/page": "app/portfolio/page.js",
-  "/fetching/page": "app/fetching/page.js"
+  "/six-degrees/page": "app/six-degrees/page.js"
 }
