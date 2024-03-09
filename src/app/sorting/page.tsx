@@ -7,12 +7,11 @@ import { useMemo, useState } from "react";
 import SyntaxHighlighter from "react-syntax-highlighter";
 import { docco } from "react-syntax-highlighter/dist/cjs/styles/hljs";
 
-const Service: NextPage = () => {
+const Sorting: NextPage = () => {
   const [individualNumber, setIndividualNumber] = useState<string>("");
   const [numbersArr, setNumbersArr] = useState<number[]>([]);
 
   const quickSort = (input: number[]): number[] => {
-    console.log("Sortin");
     if (input.length < 2) {
       return input;
     }
@@ -177,7 +176,7 @@ const Service: NextPage = () => {
           </div>
         </div>
         <h3>Introduction</h3>
-        <p>
+        <p className="about-text">
           Sorting data is a common task in software engineering, and as a result
           there have been many sorting algorithms developed throughout the
           history of computer science.
@@ -255,4 +254,4 @@ const Service: NextPage = () => {
   );
 };
 
-export default Service;
+export default Sorting;

@@ -55,13 +55,13 @@ const Fetching: NextPage = () => {
                 }
               })
               .map((beer) => (
-                <div
+                <p
                   className="individual-beer"
                   onClick={() => handleNameClick(beer.name)}
                 >
                   {beer.name}
                   {favorites.includes(beer.name) ? "*" : ""}
-                </div>
+                </p>
               ))}
           </div>
         </div>

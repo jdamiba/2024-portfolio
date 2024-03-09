@@ -1197,6 +1197,11 @@ select {
   }
 }
 
+
+
+
+/* My Custom Styles */
+
 .number-button {
   margin: auto;
   height: 60px;
@@ -1234,6 +1239,9 @@ a {
   margin-bottom: 10px;
 
 }
+
+
+
 
 *:focus{
  outline: thin dotted; 
@@ -1378,8 +1386,30 @@ h3{
   margin: auto;
   flex-direction: column;
   max-width: 500px;
+  border-radius: 25px;
+  padding-bottom:20px;
+  background: rgb(63,94,251);
+  background: radial-gradient(circle, rgba(63,94,251,1) 0%, rgba(252,70,107,1) 100%);
 }
 
 .movie-title{
   font-size: 24px;
+}
+
+.movie-titles-container{
+  text-align: center;
+}
+
+.movie-component {
+  margin:auto;
+}
+
+.movie-input{
+  height: 50px;
+  width: 300px;
+  border-radius: 15px;
+  font-size: 24px;
+  margin-bottom: 20px;
+  margin-top: 20px;
+  padding-left: 20px;
 }

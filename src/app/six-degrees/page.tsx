@@ -11,6 +11,8 @@ const SixDegrees: NextPage = () => {
 
   const [moviesArr, setMoviesArr] = useState<Array<string>>(["Oppenheimer"]);
 
+  const [connectionsArr, setConnectionsArr] = useState<Array<string>>([]);
+
   const [inputText, setInputText] = useState("");
 
   const [inputMovieCastCrew, setInputMovieCastCrew] = useState<
@@ -21,14 +23,7 @@ const SixDegrees: NextPage = () => {
     Array<string> | undefined
   >([]);
 
-  const options = {
-    method: "GET",
-    headers: {
-      accept: "application/json",
-      Authorization: `Bearer ${process.env.TMDB_BEARER_TOKEN}`,
-    },
-  };
-
+  // given a movie name as a string, return that movie's ID from TMDB if it exists.
   const getMovieIDFromName = async (movie: string) => {
     const response = await fetch(
       `https://api.themoviedb.org/3/search/movie?query=${movie}&api_key=cda8047de6d3e28539d68a54af758d45`
@@ -43,6 +38,7 @@ const SixDegrees: NextPage = () => {
     return data!.results[0].id;
   };
 
+  // given a movie ID, return the cast and crew as an array of names
   const getCastCrewFromID = async (id: string) => {
     if (!id) {
       return;
@@ -53,7 +49,7 @@ const SixDegrees: NextPage = () => {
 
     const data = await response.json();
 
-    if (data.success == false) {
+    if (data.success == false || data.results === undefined) {
       return;
     }
 
@@ -70,6 +66,7 @@ const SixDegrees: NextPage = () => {
     return result;
   };
 
+  // when the page loads, get the data related to Barbie and store it in state
   useEffect(() => {
     async function loadBarbieData() {
       let barbieID = await getMovieIDFromName("Barbie");
@@ -83,10 +80,16 @@ const SixDegrees: NextPage = () => {
     loadBarbieData();
   }, []);
 
+  // update component state when user types in input area
   const onInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setInputText(e.target.value);
   };
 
+  // when user hits enter on their keyboard, get the movieID of the input text, if it matches a movie in the API DB
+  // from the movie ID, get the cast and crew. if there is an intersection between the two movies, then add the input
+  // movie to the moviesArr. make the starterMovie equal to the input movie and clear the input area, waiting for another
+  // movie title
+  // only add if input text movie is not already in the array of movies
   const onSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     async function getInputMovieData() {
@@ -108,18 +111,6 @@ const SixDegrees: NextPage = () => {
 
     getInputMovieData();
   };
-
-  let intersectionExists = starterCastCrew?.some((r) =>
-    inputMovieCastCrew?.includes(r)
-  );
-
-  let intersection;
-
-  if (intersectionExists) {
-    intersection = starterCastCrew?.filter((value) =>
-      inputMovieCastCrew?.includes(value)
-    );
-  }
 
   return (
     <>
@@ -152,13 +143,24 @@ const SixDegrees: NextPage = () => {
         <h3>Component</h3>
 
         <div className="movie-component-container">
-          <form onSubmit={onSubmit}>
-            <input type="text" value={inputText} onChange={onInputChange} />
-          </form>
-          <div className="movie-titles-container">
-            {moviesArr?.map((member) => {
-              return <div className="movie-title">{member}</div>;
-            })}
+          <div className="movie-component">
+            <form onSubmit={onSubmit}>
+              <input
+                className="movie-input"
+                type="text"
+                value={inputText}
+                onChange={onInputChange}
+              />
+            </form>
+            <div className="movie-titles-container">
+              {moviesArr?.map((member, index) => {
+                return (
+                  <div key={index}>
+                    <div className="movie-title">{member}</div>
+                  </div>
+                );
+              })}
+            </div>
           </div>
         </div>
       </section>
