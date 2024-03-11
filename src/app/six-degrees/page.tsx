@@ -1,7 +1,8 @@
 "use client";
 
 import type { NextPage } from "next";
-import { use, useState, useEffect } from "react";
+import Link from "next/link";
+import { useState, useEffect } from "react";
 var capitalize = require("capitalize");
 
 const SixDegrees: NextPage = () => {
@@ -30,7 +31,7 @@ const SixDegrees: NextPage = () => {
   // given a movie name as a string, return that movie's ID from TMDB if it exists.
   const getMovieIDFromName = async (movie: string) => {
     const response = await fetch(
-      `https://api.themoviedb.org/3/search/movie?query=${movie}&api_key=cda8047de6d3e28539d68a54af758d45`
+      `https://api.themoviedb.org/3/search/movie?query=${movie}&api_key=${process.env.TMDB_API_KEY}`
     );
 
     const data = await response.json();
@@ -48,7 +49,7 @@ const SixDegrees: NextPage = () => {
       return;
     }
     const response = await fetch(
-      `https://api.themoviedb.org/3/movie/${id}?&api_key=cda8047de6d3e28539d68a54af758d45&append_to_response=credits`
+      `https://api.themoviedb.org/3/movie/${id}?&api_key=${process.env.TMDB_API_KEY}&append_to_response=credits`
     );
 
     const data = await response.json();
@@ -161,7 +162,7 @@ const SixDegrees: NextPage = () => {
         <div className="container">
           <div className="row">
             <div className="section-title padd-15">
-              <h2>Six Degrees</h2>
+              <h2>Six Degrees Movie Game</h2>
             </div>
           </div>
         </div>
@@ -172,15 +173,21 @@ const SixDegrees: NextPage = () => {
         </p>
         <p>
           Players play by entering the title of a movie that has a cast or crew
-          member who was also in the previously entered movie.
+          member who was also in the previously entered movie. A movie can only
+          be used once in a chain.
         </p>
 
         <h3>Component Design</h3>
         <p>
           This component will consist of an input area, where users can type in
-          the title of a movie. Above the input area will be displayed a running
-          list of the connections that the user has made. The goal is to make as
-          long of a chain as you can without using Google or IMDB.
+          the title of a movie. Below the input area will be displayed a running
+          list of the connections that the user has made, including the cast or
+          crew members who comprise the intersection.
+        </p>
+        <p>
+          This component pulls data about movies from the{" "}
+          <Link href="https://www.themoviedb.org/?language=en-US">TMDB</Link>{" "}
+          API.
         </p>
 
         <h3>Component</h3>
