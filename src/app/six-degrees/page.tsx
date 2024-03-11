@@ -9,11 +9,15 @@ const SixDegrees: NextPage = () => {
     name: string;
   }
 
-  const [moviesArr, setMoviesArr] = useState<Array<string>>(["Oppenheimer"]);
+  const [moviesArr, setMoviesArr] = useState<Array<string>>(["Barbie"]);
 
-  const [connectionsArr, setConnectionsArr] = useState<Array<string>>([]);
+  const [error, setError] = useState("");
 
   const [inputText, setInputText] = useState("");
+
+  const [allCastCrew, setAllCastCrew] = useState<
+    Array<Array<string> | undefined>
+  >([]);
 
   const [inputMovieCastCrew, setInputMovieCastCrew] = useState<
     Array<string> | undefined
@@ -49,7 +53,7 @@ const SixDegrees: NextPage = () => {
 
     const data = await response.json();
 
-    if (data.success == false || data.results === undefined) {
+    if (data.success == false || data === undefined) {
       return;
     }
 
@@ -75,6 +79,7 @@ const SixDegrees: NextPage = () => {
       );
 
       setStarterCastCrew(barbieCastCrew);
+      setAllCastCrew([...allCastCrew, barbieCastCrew]);
     }
 
     loadBarbieData();
@@ -92,24 +97,62 @@ const SixDegrees: NextPage = () => {
   // only add if input text movie is not already in the array of movies
   const onSubmit = (e: React.FormEvent) => {
     e.preventDefault();
+    if (moviesArr.includes(capitalize(inputText))) {
+      setError("Movie already used!");
+      return;
+    }
     async function getInputMovieData() {
       let movieID = await getMovieIDFromName(inputText);
       if (movieID == undefined) {
         setInputMovieCastCrew([]);
+        setError("Movie not found!");
+
         return;
       }
       let movieCastCrew: string[] | undefined = await getCastCrewFromID(
         movieID
       );
       setInputMovieCastCrew(movieCastCrew);
-      if (!moviesArr.includes(inputText)) {
-        setMoviesArr([...moviesArr, capitalize.words(inputText)]);
-        setStarterCastCrew(movieCastCrew);
-        setInputText("");
+      if (!moviesArr.includes(capitalize(inputText))) {
+        if (isThereIntersection(starterCastCrew, movieCastCrew)) {
+          setMoviesArr([...moviesArr, capitalize.words(inputText)]);
+          setStarterCastCrew(movieCastCrew);
+          setAllCastCrew([...allCastCrew, movieCastCrew]);
+          setError("");
+
+          setInputText("");
+          return;
+        } else {
+          setError("No Links Found!");
+          return;
+        }
       }
     }
 
     getInputMovieData();
+  };
+
+  const isThereIntersection = (
+    castCrewA: string[] | undefined,
+    castcrewB: string[] | undefined
+  ) => {
+    const found = castCrewA?.some((r) => castcrewB?.includes(r));
+
+    return found;
+  };
+
+  const getIntersectionOfCasts = (index1: number, index2: number) => {
+    const filteredArray = allCastCrew[index1]?.filter((value) =>
+      allCastCrew[index2]?.includes(value)
+    );
+
+    let uniques = new Set(filteredArray);
+
+    let uniquesAsArray = Array.from(uniques);
+
+    return uniquesAsArray?.map((member) => {
+      return <div>{member}</div>;
+    });
   };
 
   return (
@@ -151,12 +194,21 @@ const SixDegrees: NextPage = () => {
                 value={inputText}
                 onChange={onInputChange}
               />
+              {error && <div className="error-text">{error}</div>}
             </form>
             <div className="movie-titles-container">
               {moviesArr?.map((member, index) => {
                 return (
                   <div key={index}>
                     <div className="movie-title">{member}</div>
+                    {index === moviesArr.length - 1 ? (
+                      ""
+                    ) : (
+                      <>
+                        <p>Links with {moviesArr[index + 1]}</p>
+                        <div>{getIntersectionOfCasts(index, index + 1)}</div>
+                      </>
+                    )}
                   </div>
                 );
               })}
