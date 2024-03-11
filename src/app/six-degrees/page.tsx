@@ -150,8 +150,8 @@ const SixDegrees: NextPage = () => {
 
     let uniquesAsArray = Array.from(uniques);
 
-    return uniquesAsArray?.map((member) => {
-      return <div>{member}</div>;
+    return uniquesAsArray?.map((member, index) => {
+      return <div key={index}>{member}</div>;
     });
   };
 
