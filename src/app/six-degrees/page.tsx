@@ -30,17 +30,15 @@ const SixDegrees: NextPage = () => {
 
   // given a movie name as a string, return that movie's ID from TMDB if it exists.
   const getMovieIDFromName = async (movie: string) => {
-    const response = await fetch(
-      `https://api.themoviedb.org/3/search/movie?query=${movie}&api_key=${process.env.TMDB_API_KEY}`
-    );
+    const response = await fetch(`/api/getID?query=${movie}`);
 
     const data = await response.json();
 
-    if (data.success == false || data.results.length === 0) {
+    if (data.success == false || data.data.results.length === 0) {
       return;
     }
 
-    return data!.results[0].id;
+    return data!.data.results[0].id;
   };
 
   // given a movie ID, return the cast and crew as an array of names
@@ -48,9 +46,7 @@ const SixDegrees: NextPage = () => {
     if (!id) {
       return;
     }
-    const response = await fetch(
-      `https://api.themoviedb.org/3/movie/${id}?&api_key=${process.env.TMDB_API_KEY}&append_to_response=credits`
-    );
+    const response = await fetch(`/api/getCastCrew?query=${id}`);
 
     const data = await response.json();
 
@@ -58,17 +54,7 @@ const SixDegrees: NextPage = () => {
       return;
     }
 
-    let result: string[] = [];
-
-    data.credits.cast.map((member: CastCrew) => {
-      result.push(member.name);
-    });
-
-    data.credits.crew.map((member: CastCrew) => {
-      result.push(member.name);
-    });
-
-    return result;
+    return data.result;
   };
 
   // when the page loads, get the data related to Barbie and store it in state
