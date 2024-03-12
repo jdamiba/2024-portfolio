@@ -1,5 +1,6 @@
 "use client";
 
+import { count } from "console";
 import type { NextPage } from "next";
 import Link from "next/link";
 import { useState, useEffect } from "react";
@@ -11,6 +12,8 @@ const SixDegrees: NextPage = () => {
   }
 
   const [moviesArr, setMoviesArr] = useState<Array<string>>(["Barbie"]);
+
+  const [linksArr, setLinksArr] = useState<Array<string>>([]);
 
   const [error, setError] = useState("");
 
@@ -77,6 +80,20 @@ const SixDegrees: NextPage = () => {
     setInputText(e.target.value);
   };
 
+  const containsThree = (array: any) => {
+    let occurrences = array.reduce(
+      (acc: any, value: any) => ((acc[value] = -~acc[value]), acc),
+      {}
+    );
+
+    for (const [key, value] of Object.entries(occurrences)) {
+      if (value == 3) {
+        return true;
+      }
+    }
+    return false;
+  };
+
   // when user hits enter on their keyboard, get the movieID of the input text, if it matches a movie in the API DB
   // from the movie ID, get the cast and crew. if there is an intersection between the two movies, then add the input
   // movie to the moviesArr. make the starterMovie equal to the input movie and clear the input area, waiting for another
@@ -101,14 +118,29 @@ const SixDegrees: NextPage = () => {
       );
       setInputMovieCastCrew(movieCastCrew);
       if (!moviesArr.includes(capitalize(inputText))) {
+        // moviesArr does not already contain input movie
         if (isThereIntersection(starterCastCrew, movieCastCrew)) {
-          setMoviesArr([...moviesArr, capitalize.words(inputText)]);
-          setStarterCastCrew(movieCastCrew);
-          setAllCastCrew([...allCastCrew, movieCastCrew]);
-          setError("");
+          // there is an intersection
 
-          setInputText("");
-          return;
+          let intersection = getIntersectionOfCastsAsArray(
+            starterCastCrew,
+            movieCastCrew
+          );
+
+          if (!containsThree(linksArr)) {
+            //if linksArr doesn't contain the same name more than 3 times
+            setLinksArr([...linksArr, ...intersection]);
+
+            setMoviesArr([...moviesArr, capitalize.words(inputText)]);
+            setStarterCastCrew(movieCastCrew);
+            setAllCastCrew([...allCastCrew, movieCastCrew]);
+            setError("");
+
+            setInputText("");
+            return;
+          } else {
+            setError("Same Link cannot be used more than 3 times!");
+          }
         } else {
           setError("No Links Found!");
           return;
@@ -138,8 +170,63 @@ const SixDegrees: NextPage = () => {
     let uniquesAsArray = Array.from(uniques);
 
     return uniquesAsArray?.map((member, index) => {
-      return <div key={index}>{member}</div>;
+      console.log(countInLinks(member));
+
+      if (countInLinks(member) == 1) {
+        return (
+          <div key={index}>
+            <i className="fa fa-link" />
+            {member}X
+          </div>
+        );
+      }
+
+      if (countInLinks(member) == 2) {
+        return (
+          <div key={index}>
+            <i className="fa fa-link" />
+            {member}XX
+          </div>
+        );
+      }
+
+      if (countInLinks(member) == 3) {
+        return (
+          <div key={index}>
+            <i className="fa fa-link" />
+            {member}XXX
+          </div>
+        );
+      }
     });
+  };
+
+  const countInLinks = (name: string): number | unknown => {
+    let occurrences = linksArr.reduce(
+      (acc: any, value: any) => ((acc[value] = -~acc[value]), acc),
+      {}
+    );
+
+    for (const [key, value] of Object.entries(occurrences)) {
+      if (key === name) {
+        return value;
+      }
+    }
+
+    return -1;
+  };
+
+  const getIntersectionOfCastsAsArray = (
+    movie1: string[] | undefined,
+    movie2: string[] | undefined
+  ) => {
+    const filteredArray = movie1?.filter((value) => movie2?.includes(value));
+
+    let uniques = new Set(filteredArray);
+
+    let uniquesAsArray = Array.from(uniques);
+
+    return uniquesAsArray;
   };
 
   return (
@@ -197,10 +284,9 @@ const SixDegrees: NextPage = () => {
                     {index === moviesArr.length - 1 ? (
                       ""
                     ) : (
-                      <>
-                        <p>Links with {moviesArr[index + 1]}</p>
-                        <div>{getIntersectionOfCasts(index, index + 1)}</div>
-                      </>
+                      <div className="link-container">
+                        {getIntersectionOfCasts(index, index + 1)}
+                      </div>
                     )}
                   </div>
                 );

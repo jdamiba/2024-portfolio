@@ -1398,6 +1398,8 @@ h3{
 
 .movie-titles-container{
   text-align: center;
+  display: flex;
+  flex-direction: column;
 }
 
 .movie-component {
@@ -1416,4 +1418,15 @@ h3{
 
 .error-text{
   text-align: center;
+}
+
+
+.link-container{
+  display:flex;
+  margin: auto;
+  flex-direction: column;
+}
+
+.fa-link{
+  margin-right: 5px;
 }

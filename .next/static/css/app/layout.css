@@ -1283,6 +1283,8 @@ h3{
 
 .movie-titles-container{
   text-align: center;
+  display: flex;
+  flex-direction: column;
 }
 
 .movie-component {
@@ -1301,6 +1303,17 @@ h3{
 
 .error-text{
   text-align: center;
+}
+
+
+.link-container{
+  display:flex;
+  margin: auto;
+  flex-direction: column;
+}
+
+.fa-link{
+  margin-right: 5px;
 }
 /*!********************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
   !*** css ./node_modules/next/dist/build/webpack/loaders/css-loader/src/index.js??ruleSet[1].rules[11].oneOf[2].use[1]!./node_modules/next/dist/build/webpack/loaders/next-font-loader/index.js??ruleSet[1].rules[11].oneOf[2].use[2]!./node_modules/next/font/google/target.css?{"path":"src/app/layout.tsx","import":"Inter","arguments":[{"subsets":["latin"]}],"variableName":"inter"} ***!
@@ -1541,4 +1554,3 @@ body.dark .aside .nav li a.active,
   font-size: 2rem;
   cursor: pointer;
 }
-
