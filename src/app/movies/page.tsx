@@ -9,7 +9,7 @@ var capitalize = require("capitalize");
 
 const Movies: NextPage = () => {
   const time = new Date();
-  time.setSeconds(time.getSeconds() + 60);
+  time.setSeconds(time.getSeconds() + 20);
 
   const {
     totalSeconds,
@@ -181,7 +181,7 @@ const Movies: NextPage = () => {
       setError("");
       setInputText("");
       const time = new Date();
-      time.setSeconds(time.getSeconds() + 60);
+      time.setSeconds(time.getSeconds() + 20);
       restart(time, true);
 
       return;
@@ -335,7 +335,7 @@ const Movies: NextPage = () => {
               <button
                 onClick={() => {
                   const time = new Date();
-                  time.setSeconds(time.getSeconds() + 60);
+                  time.setSeconds(time.getSeconds() + 20);
                   setMovieTitles(["Barbie"]);
                   setCastCrewConnections([]);
                   setError("");
