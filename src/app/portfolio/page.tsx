@@ -12,7 +12,7 @@ const Service: NextPage = () => {
             </div>
           </div>
           <div className="row">
-            {/* Service Item 1: Logo Design */}
+            {/* Item 1: Quicksort Component */}
             <div className="service-item padd-15">
               <Link href="/sorting">
                 <div className="service-item-inner">
@@ -27,24 +27,8 @@ const Service: NextPage = () => {
                 </div>
               </Link>
             </div>
-            {/* Service Item 1 End */}
-            {/* Service Item 2: Web Design */}
-            <div className="service-item padd-15">
-              <Link href="/fetching">
-                <div className="service-item-inner">
-                  <div className="icon">
-                    <i className="fa fa-laptop" />
-                  </div>
-                  <h4>Data Fetching, Presentation, Filtering</h4>
-                  <p>
-                    This component fetches data from an API and lets the user
-                    filter the results.
-                  </p>
-                </div>
-              </Link>
-            </div>
-            {/* Service Item 2 End */}
-            {/* Service Item 3: WordPress */}
+            {/* Item 1 End */}
+            {/* Item 2: Tic Tac Toe Game */}
             <div className="service-item padd-15">
               <Link href="/tictactoe">
                 <div className="service-item-inner">
@@ -59,22 +43,22 @@ const Service: NextPage = () => {
                 </div>
               </Link>
             </div>
-            {/* Service Item 3 End */}
-            {/* Service Item 3: WordPress */}
+            {/* Item 2 End */}
+            {/* Item 3: Movie Connections Game */}
             <div className="service-item padd-15">
-              <Link href="/six-degrees">
+              <Link href="/movies">
                 <div className="service-item-inner">
                   <div className="icon">
                     <i className="fa fa-times" />
                   </div>
-                  <h4>Six Degrees Movie Game</h4>
+                  <h4>Movie Connections Game</h4>
                   <p>
                     A game where you build a chain of relations between movies.
                   </p>
                 </div>
               </Link>
             </div>
-            {/* Service Item 3 End */}
+            {/* Item 3 End */}
           </div>
         </div>
       </section>

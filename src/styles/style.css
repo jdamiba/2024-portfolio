@@ -1400,6 +1400,7 @@ h3{
   text-align: center;
   display: flex;
   flex-direction: column;
+  position: relative;
 }
 
 .movie-component {
@@ -1411,6 +1412,7 @@ h3{
   width: 300px;
   border-radius: 15px;
   font-size: 24px;
+  margin: auto;
   margin-bottom: 20px;
   margin-top: 20px;
   padding-left: 20px;
@@ -1429,4 +1431,14 @@ h3{
 
 .fa-link{
   margin-right: 5px;
+}
+
+.input-form {
+  display: flex;
+  flex-direction: column;
+}
+
+.score {
+  font-size: 24px;
+  text-align: center;
 }

@@ -16,10 +16,10 @@
       "static/chunks/main-app.js",
       "static/chunks/app/portfolio/page.js"
     ],
-    "/six-degrees/page": [
+    "/movies/page": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
-      "static/chunks/app/six-degrees/page.js"
+      "static/chunks/app/movies/page.js"
     ]
   }
 }

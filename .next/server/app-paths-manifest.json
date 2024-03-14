@@ -1,5 +1,6 @@
 {
-  "/six-degrees/page": "app/six-degrees/page.js",
+  "/movies/page": "app/movies/page.js",
+  "/portfolio/page": "app/portfolio/page.js",
   "/api/getID/route": "app/api/getID/route.js",
   "/api/getCastCrew/route": "app/api/getCastCrew/route.js"
 }
