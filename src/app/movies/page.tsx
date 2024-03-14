@@ -3,9 +3,31 @@
 import type { NextPage } from "next";
 import Link from "next/link";
 import { useState, useEffect } from "react";
+import { useTimer } from "react-timer-hook";
+
 var capitalize = require("capitalize");
 
 const Movies: NextPage = () => {
+  const time = new Date();
+  time.setSeconds(time.getSeconds() + 60);
+
+  const {
+    totalSeconds,
+    seconds,
+    minutes,
+    hours,
+    days,
+    isRunning,
+    start,
+    pause,
+    resume,
+    restart,
+  } = useTimer({
+    expiryTimestamp: time,
+    onExpire: () => console.warn("onExpire called"),
+    autoStart: false,
+  });
+
   // the titles of all of the movies in the connection chain
   // e.g., ["Barbie", "Amsterdam", "Babylon"]
   const [movieTitles, setMovieTitles] = useState<Array<string>>(["Barbie"]);
@@ -62,20 +84,20 @@ const Movies: NextPage = () => {
     }
   };
 
+  async function loadStarterData() {
+    let barbieID = await getMovieIDFromName(movieTitles[0]);
+    if (barbieID === undefined) {
+      setError("Could not get starter movie ID from TMDB");
+      return;
+    }
+    let barbieCastCrew: string[] = await getCastCrewFromID(barbieID);
+
+    setStarterCastCrew(barbieCastCrew);
+    setFullListOfCastCrew([...fullListOfCastCrew, barbieCastCrew]);
+  }
+
   // when the page loads, get the data related to the starter movie and store it in state
   useEffect(() => {
-    async function loadStarterData() {
-      let barbieID = await getMovieIDFromName(movieTitles[0]);
-      if (barbieID === undefined) {
-        setError("Could not get starter movie ID from TMDB");
-        return;
-      }
-      let barbieCastCrew: string[] = await getCastCrewFromID(barbieID);
-
-      setStarterCastCrew(barbieCastCrew);
-      setFullListOfCastCrew([...fullListOfCastCrew, barbieCastCrew]);
-    }
-
     loadStarterData();
   }, []);
 
@@ -103,6 +125,10 @@ const Movies: NextPage = () => {
   // runs when the user attemps to submit a movie to add to the connections chain
   const onSubmit = (e: React.FormEvent) => {
     e.preventDefault();
+    if (!isRunning) {
+      setError("Timer not started!");
+      return;
+    }
 
     async function getInputMovieData() {
       let movieID = await getMovieIDFromName(inputText);
@@ -154,6 +180,9 @@ const Movies: NextPage = () => {
       setFullListOfCastCrew([...fullListOfCastCrew, movieCastCrew]);
       setError("");
       setInputText("");
+      const time = new Date();
+      time.setSeconds(time.getSeconds() + 60);
+      restart(time, true);
 
       return;
     }
@@ -176,6 +205,8 @@ const Movies: NextPage = () => {
     let uniques = new Set(filteredArray);
 
     let uniquesAsArray = Array.from(uniques);
+
+    console.log(uniquesAsArray);
 
     return uniquesAsArray?.map((member, index) => {
       if (numberOfTimesInCastCrewConnections(member) == 1) {
@@ -296,35 +327,59 @@ const Movies: NextPage = () => {
 
         <div className="movie-component-container">
           <div className="movie-component">
-            <div className="score">Chain Length: {movieTitles.length}</div>
+            <div className="score">
+              <div>Chain Length: {movieTitles.length}</div>
+              <div>Time: {seconds}</div>
+              <button onClick={start}>Start</button>
+              <div>{seconds == 0 ? "Game Over!" : ""}</div>
+              <button
+                onClick={() => {
+                  const time = new Date();
+                  time.setSeconds(time.getSeconds() + 60);
+                  setMovieTitles(["Barbie"]);
+                  setCastCrewConnections([]);
+                  setError("");
+                  setInputText("");
+                  setFullListOfCastCrew([]);
+                  setStarterCastCrew([]);
+                  loadStarterData();
+                  restart(time, false);
+                }}
+              >
+                Restart
+              </button>
+            </div>
+
             <form className="input-form" onSubmit={onSubmit}>
-              <input
-                className="movie-input"
-                type="text"
-                value={inputText}
-                onChange={onInputChange}
-              />
+              {seconds == 0 ? (
+                ""
+              ) : (
+                <input
+                  className="movie-input"
+                  type="text"
+                  value={inputText}
+                  onChange={onInputChange}
+                />
+              )}
+
               {error && <div className="error-text">{error}</div>}
             </form>
             <div className="movie-titles-container">
-              {movieTitles
-                ?.slice(0)
-                .reverse()
-                .map((member, index) => {
-                  return (
-                    <div key={index}>
-                      <div className="movie-title">{member}</div>
+              {movieTitles.map((member, index) => {
+                return (
+                  <div key={index}>
+                    <div className="movie-title">{member}</div>
 
-                      {index === movieTitles.length - 1 ? (
-                        ""
-                      ) : (
-                        <div className="link-container">
-                          {getIntersectionOfCasts(index, index + 1)}
-                        </div>
-                      )}
-                    </div>
-                  );
-                })}
+                    {index === movieTitles.length - 1 ? (
+                      ""
+                    ) : (
+                      <div className="link-container">
+                        {getIntersectionOfCasts(index, index + 1)}
+                      </div>
+                    )}
+                  </div>
+                );
+              })}
             </div>
           </div>
         </div>
