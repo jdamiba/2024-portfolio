@@ -183,6 +183,7 @@ const Movies: NextPage = () => {
           <div key={index}>
             <i className="fa fa-link" />
             {member}
+            <i className="fa fa-times" />
           </div>
         );
       }
@@ -192,6 +193,8 @@ const Movies: NextPage = () => {
           <div key={index}>
             <i className="fa fa-link" />
             {member}
+            <i className="fa fa-times" />
+            <i className="fa fa-times" />
           </div>
         );
       }
@@ -311,6 +314,7 @@ const Movies: NextPage = () => {
                   return (
                     <div key={index}>
                       <div className="movie-title">{member}</div>
+
                       {index === movieTitles.length - 1 ? (
                         ""
                       ) : (
