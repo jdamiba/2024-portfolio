@@ -7,6 +7,10 @@ import { useTimer } from "react-timer-hook";
 
 var capitalize = require("capitalize");
 
+interface Movie {
+  title: string;
+}
+
 const Movies: NextPage = () => {
   const time = new Date();
   time.setSeconds(time.getSeconds() + 59);
@@ -63,10 +67,14 @@ const Movies: NextPage = () => {
 
     const data = await response.json();
 
-    if (data.data.results.length === 0) {
+    let filtered = data.data.results.filter((result: Movie) => {
+      return capitalize.words(result.title) == capitalize.words(movie);
+    });
+
+    if (filtered.length === 0) {
       return;
     } else {
-      return data!.data.results[0].id;
+      return filtered[0].id;
     }
   };
 
@@ -205,8 +213,6 @@ const Movies: NextPage = () => {
     let uniques = new Set(filteredArray);
 
     let uniquesAsArray = Array.from(uniques);
-
-    console.log(uniquesAsArray);
 
     return uniquesAsArray?.map((member, index) => {
       if (numberOfTimesInCastCrewConnections(member) == 1) {
