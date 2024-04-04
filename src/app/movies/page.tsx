@@ -32,6 +32,10 @@ const Movies: NextPage = () => {
     autoStart: false,
   });
 
+  const [gameOver, setGameOver] = useState(false);
+
+  const [kevinBacon, setKevinBacon] = useState(false);
+
   // the titles of all of the movies in the connection chain
   // e.g., ["Barbie", "Amsterdam", "Babylon"]
   const [movieTitles, setMovieTitles] = useState<Array<string>>(["Barbie"]);
@@ -66,6 +70,8 @@ const Movies: NextPage = () => {
     const response = await fetch(`/api/getID?query=${movie}`);
 
     const data = await response.json();
+
+    console.log(data);
 
     let filtered = data.data.results.filter((result: Movie) => {
       return capitalize.words(result.title) == capitalize.words(movie);
@@ -112,6 +118,18 @@ const Movies: NextPage = () => {
   // update component state when user types in input area
   const onInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setInputText(e.target.value);
+  };
+
+  const isKevinBaconInMovie = (movieCastCrew) => {
+    let found = false;
+    movieCastCrew.map((member) => {
+      if (member == "Kevin Bacon") {
+        found = true;
+      }
+      return;
+    });
+
+    return found;
   };
 
   // given an array of strings, check if one of the strings occurs three times
@@ -185,9 +203,11 @@ const Movies: NextPage = () => {
       setCastCrewConnections([...castCrewConnections, ...intersection]);
       setMovieTitles([...movieTitles, capitalize.words(inputText)]);
       setStarterCastCrew(movieCastCrew);
+      setKevinBacon(isKevinBaconInMovie(movieCastCrew));
       setFullListOfCastCrew([...fullListOfCastCrew, movieCastCrew]);
       setError("");
       setInputText("");
+
       const time = new Date();
       time.setSeconds(time.getSeconds() + 59);
       restart(time, true);
@@ -288,20 +308,16 @@ const Movies: NextPage = () => {
         <div className="container">
           <div className="row">
             <div className="section-title padd-15">
-              <h2>Movie Connections Game</h2>
+              <h2>Six Degrees of Kevin Bacon</h2>
             </div>
           </div>
         </div>
         <h3>Introduction</h3>
         <p>
-          On this page is a game for movie lovers where the goal is to build a
-          chain of movies using the cast and crew as links.
-        </p>
-        <p>
-          Players play by entering the title of a movie that has a cast or crew
-          member who was also in the previously entered movie. A movie can only
-          be used once in a chain. The same cast or crew member can only be used
-          three times.
+          Six Degrees is a game that tests your knowledge of popular movies and
+          their casts and crews. The goal of the game is to form the shortest
+          chain from the starting movie, Barbie, to a movie that includes Kevin
+          Bacon.
         </p>
 
         <h3>Component Design</h3>
@@ -310,7 +326,7 @@ const Movies: NextPage = () => {
           title of a movie. When users press enter, we use the{" "}
           <Link href="https://www.themoviedb.org/?language=en-US">TMDB</Link>{" "}
           API to try and match the input text to the name of a movie in the API
-          database. If a match is not found, we display an error message to the
+          database. If no match is found, we display an error message to the
           user and they can try another input.
         </p>
         <p>
@@ -334,10 +350,21 @@ const Movies: NextPage = () => {
         <div className="movie-component-container">
           <div className="movie-component">
             <div className="score">
-              <div>Chain Length: {movieTitles.length}</div>
+              <div>Degrees of Separation: {movieTitles.length}</div>
               <div>Time: {seconds}</div>
               <button onClick={start}>Start</button>
-              <div>{seconds == 0 ? "Game Over!" : ""}</div>
+              <div>
+                {kevinBacon ? (
+                  <div>
+                    <p>You Win!</p>
+                    <p>{`Kevin Bacon appears in ${
+                      movieTitles[movieTitles.length - 1]
+                    }`}</p>
+                  </div>
+                ) : (
+                  ""
+                )}
+              </div>
               <button
                 onClick={() => {
                   const time = new Date();
@@ -357,7 +384,7 @@ const Movies: NextPage = () => {
             </div>
 
             <form className="input-form" onSubmit={onSubmit}>
-              {seconds == 0 ? (
+              {gameOver == true ? (
                 ""
               ) : (
                 <input
