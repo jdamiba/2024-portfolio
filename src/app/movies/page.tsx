@@ -120,7 +120,7 @@ const Movies: NextPage = () => {
     setInputText(e.target.value);
   };
 
-  const isKevinBaconInMovie = (movieCastCrew) => {
+  const isKevinBaconInMovie = (movieCastCrew: string[]) => {
     let found = false;
     movieCastCrew.map((member) => {
       if (member == "Kevin Bacon") {
